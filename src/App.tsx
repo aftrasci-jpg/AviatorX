@@ -97,29 +97,42 @@ export default function App() {
 
       if (greenMultipliers.length === 0) {
         rec = { status: 'info', text: 'Attente recommandée', value: 'Aucun signal' };
-      } else if (greenMultipliers.length === 1) {
-        const val = greenMultipliers[0];
-        let target: number;
-        if (val < 5) {
-          target = Math.floor(val) - 1;
-        } else if (val < 10) {
-          target = 3.00;
-        } else {
-          target = 5.00;
-        }
-        rec = { status: 'success', text: 'Signal Cible', value: `${target.toFixed(2)}x` };
-      } else if (greenMultipliers.length === 2) {
-        const maxVal = greenMultipliers[0];
-        const minVal = greenMultipliers[1];
-        const target = maxVal < 10 ? Math.floor(minVal) : 5;
-        rec = { status: 'success', text: 'Signal Cible', value: `${target.toFixed(2)}x` };
-      } else if (greenMultipliers.length === 3) {
-        const secondLargest = greenMultipliers[1];
-        const target = Math.floor(secondLargest) - 1;
-        rec = { status: 'success', text: 'Signal Cible', value: `${target.toFixed(2)}x` };
-      } else {
+      } else if (greenMultipliers.length >= 4) {
         // Cas 4 (4 values or more)
         rec = { status: 'error', text: 'Paris risqué', value: 'DANGER' };
+      } else {
+        let target: number;
+        if (greenMultipliers.length === 1) {
+          const val = greenMultipliers[0];
+          if (val < 5) {
+            target = Math.floor(val) - 1;
+          } else if (val < 10) {
+            target = 3.00;
+          } else {
+            target = 5.00;
+          }
+        } else if (greenMultipliers.length === 2) {
+          const maxVal = greenMultipliers[0];
+          const minVal = greenMultipliers[1];
+          target = maxVal < 10 ? Math.floor(minVal) : 5;
+        } else {
+          // greenMultipliers.length === 3
+          const secondLargest = greenMultipliers[1];
+          target = Math.floor(secondLargest) - 1;
+        }
+
+        // Application des règles de filtrage finales
+        if (target > 5) {
+          target = 5;
+        }
+
+        if (target === 4) {
+          rec = { status: 'success', text: 'Signal Cible', value: '3.00x' };
+        } else if (target <= 2) {
+          rec = { status: 'warning', text: 'Analyse terminée', value: 'SIGNAL NON TROUVÉ' };
+        } else {
+          rec = { status: 'success', text: 'Signal Cible', value: `${target.toFixed(2)}x` };
+        }
       }
 
       const newResult: SimulationResult = {
