@@ -22,7 +22,7 @@ export default defineConfig(({mode}) => {
           display: 'standalone',
           icons: [
             {
-              src: 'https://cdn-icons-png.flaticon.com/512/732/732200.png',
+              src: 'https://cdn-icons-png.flaticon.com/512/3122/3122324.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any maskable'
