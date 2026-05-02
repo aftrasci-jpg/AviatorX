@@ -38,8 +38,14 @@ export default function App() {
   const [currentResult, setCurrentResult] = useState<SimulationResult | null>(null);
   const [showValues, setShowValues] = useState(true);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) {
+      setIsStandalone(true);
+    }
+
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -174,14 +180,27 @@ export default function App() {
           </div>
         </div>
         <div className="flex items-center gap-4 sm:gap-6">
-          {deferredPrompt && (
-            <button 
-              onClick={handleInstallClick}
-              className="flex items-center gap-2 bg-aviator-green/10 hover:bg-aviator-green/20 text-aviator-green px-4 py-2 rounded-xl border border-aviator-green/20 transition-all group"
-            >
-              <Download className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-bold font-mono tracking-tight">INSTALLER l'APP</span>
-            </button>
+          {!isStandalone && (
+            deferredPrompt ? (
+              <button 
+                onClick={handleInstallClick}
+                className="flex items-center gap-2 bg-aviator-green/10 hover:bg-aviator-green/20 text-aviator-green px-4 py-2 rounded-xl border border-aviator-green/20 transition-all group"
+              >
+                <Download className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="text-xs font-bold font-mono tracking-tight uppercase">Installer l'App</span>
+              </button>
+            ) : (
+              <div className="hidden md:flex flex-col items-end opacity-40">
+                <span className="text-[9px] font-mono text-gray-500 uppercase">PWA Ready</span>
+                <span className="text-[10px] text-gray-400">Ouvrir hors aperçu pour installer</span>
+              </div>
+            )
+          )}
+          {isStandalone && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-aviator-green/5 rounded-lg border border-aviator-green/10">
+              <CheckCircle2 className="w-3 h-3 text-aviator-green" />
+              <span className="text-[10px] font-mono text-aviator-green/60 uppercase">Version Installée</span>
+            </div>
           )}
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-[10px] font-mono text-gray-500 uppercase tracking-tighter">Statut Système</span>
