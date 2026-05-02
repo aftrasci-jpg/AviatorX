@@ -160,11 +160,16 @@ export default function App() {
       {/* Header */}
       <header className="w-full flex justify-between items-center mb-12">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-aviator-red rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(226,29,44,0.4)]">
-            <Zap className="text-white fill-current w-6 h-6" />
+          <div className="w-10 h-10 bg-aviator-red rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(226,29,44,0.4)] overflow-hidden p-1">
+            <img 
+              src="https://res.cloudinary.com/dzthrix45/image/upload/v1777742808/file_000000003270722f8ac2108cb4322e5d_vy6hsr.png" 
+              alt="Aviator Logo" 
+              className="w-full h-full object-contain"
+              referrerPolicy="no-referrer"
+            />
           </div>
           <div>
-            <h1 className="font-display font-bold text-xl tracking-tight leading-none">AVIATOR</h1>
+            <h1 className="font-display font-bold text-xl tracking-tight leading-none text-white">AVIATOR<span className="text-aviator-red">CRASH VISION</span></h1>
             <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mt-1">ANALYSEUR D'IMPULSIONS v2.4</p>
           </div>
         </div>

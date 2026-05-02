@@ -14,15 +14,15 @@ export default defineConfig(({mode}) => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'Aviator Predictor Pro',
-          short_name: 'AviatorPro',
+          name: 'Aviator Crash Vision',
+          short_name: 'CrashVision',
           description: 'Simulation et analyse de multiplicateurs Aviator',
           theme_color: '#0a0a0c',
           background_color: '#0a0a0c',
           display: 'standalone',
           icons: [
             {
-              src: 'https://cdn-icons-png.flaticon.com/512/1033/1033997.png',
+              src: 'https://res.cloudinary.com/dzthrix45/image/upload/v1777742808/file_000000003270722f8ac2108cb4322e5d_vy6hsr.png',
               sizes: '512x512',
               type: 'image/png'
             }
